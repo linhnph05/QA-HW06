@@ -1,0 +1,5741 @@
+{
+  "info": {
+    "name": "EShop HW06 API Tests - 23127081",
+    "description": "120 audited API cases for FR-03, FR-09, and FR-12.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "resetEmail",
+      "value": "hw06.reset@example.test"
+    },
+    {
+      "key": "resetToken",
+      "value": ""
+    },
+    {
+      "key": "runnerId",
+      "value": "3"
+    },
+    {
+      "key": "userToken",
+      "value": ""
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    },
+    {
+      "key": "tamperedToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.pdnnpIZGU0E_6E8O25jG_pAuS-HoRqfWdYKSP00YyCU"
+    },
+    {
+      "key": "expiredToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZXhwIjoxfQ.RkXsEz-C96KG-kmiwxh7L1wqhLjoe_jhieaaIoOzDOo"
+    },
+    {
+      "key": "noneAlgToken",
+      "value": "eyJhbGciOiJub25lIn0.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0."
+    },
+    {
+      "key": "forgedAdminToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.8qy0FGcgEEd1Xd1UJEmUqw2hxfUzR13nzaRagLqn5ms"
+    },
+    {
+      "key": "wrongSignatureToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIn0.pdnnpIZGU0E_6E8O25jG_pAuS-HoRqfWdYKSP00YyCU"
+    },
+    {
+      "key": "noRoleToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.ogNplfwjLdTQEu0CaC2_Oq-NrLTBoRZuu0BBFre3zvY"
+    },
+    {
+      "key": "upperRoleToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IkFETUlOIn0.lnMy7OCtwdwfQ3pVZjC8jW-yaZv0XSyi-ysSRnyRZxs"
+    },
+    {
+      "key": "nullRoleToken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6bnVsbH0.Fue3LMwr2fmrt7rrkNZU71m5t4jbzWOy54TuRvLLuBA"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.request.headers.upsert({key:\"X-Student-Id\", value:\"23127081\"});",
+          "console.log(\"X-Student-Id header:\", pm.request.headers.get(\"X-Student-Id\"));"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Setup",
+      "item": [
+        {
+          "name": "Register runner user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"HW06 Runner\",\"email\":\"hw06.runner@example.test\",\"password\":\"Runner123!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) pm.collectionVariables.set(\"runnerId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Register reset user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"HW06 Reset\",\"email\":\"hw06.reset@example.test\",\"password\":\"Reset123!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "register"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": []
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login runner user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"hw06.runner@example.test\",\"password\":\"Runner123!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"setup user login\", () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set(\"userToken\", pm.response.json().token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"setup admin login\", () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set(\"adminToken\", pm.response.json().token);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FR-03 Password Recovery",
+      "item": [
+        {
+          "name": "FR03-AI-01 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-01\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - has message\", () => pm.expect(pm.response.json()).to.have.property(\"message\"));",
+                  "pm.test(caseId + \" - has resetToken\", () => pm.expect(pm.response.json()).to.have.property(\"resetToken\"));",
+                  "pm.test(caseId + \" - OTP is six digits\", () => pm.expect(pm.response.json().resetToken).to.match(/^\\d{6}$/));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-02 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-02\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - has message\", () => pm.expect(pm.response.json()).to.have.property(\"message\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"unknown.hw06@example.test\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-03 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-03\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-04 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-04\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-05 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-05\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"   \"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-06 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-06\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"bad-email\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-07 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-07\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":null}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-08 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-08\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":12345}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-09 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-09\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":{\"$ne\":null}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-10 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-10\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@x.com\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-11 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-11\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"' OR 1=1 --\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-12 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-12\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"<script>alert(1)</script>@x.com\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-13 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-13\";",
+                  "pm.test(caseId + \" - status is 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - has error\", () => pm.expect(pm.response.json()).to.have.property(\"error\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"HW06.RESET@EXAMPLE.TEST\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-14 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-14\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"000000\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-15 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-15\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - has message\", () => pm.expect(pm.response.json()).to.have.property(\"message\"));",
+                  "pm.test(caseId + \" - has resetToken\", () => pm.expect(pm.response.json()).to.have.property(\"resetToken\"));",
+                  "pm.test(caseId + \" - OTP is six digits\", () => pm.expect(pm.response.json().resetToken).to.match(/^\\d{6}$/));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-16 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-16\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - has message\", () => pm.expect(pm.response.json()).to.have.property(\"message\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-17 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-17\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}.other\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-18 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-18\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"000000\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-19 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-19\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-20 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-20\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-21 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-21\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-22 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-22\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"bad-email\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-23 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-23\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":null,\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-24 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-24\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-25 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-25\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"12345\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-26 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-26\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"1234567\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-27 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-27\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":123456,\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-28 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-28\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"Aa1!aaa\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-29 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-29\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"aa1!aaaa\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-30 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-30\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"AA1!AAAA\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-31 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-31\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"Aaa!aaaa\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-32 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-32\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"Aaa1aaaa\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-33 - domain/security/schema",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-33\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":null}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-34 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-34\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"000000\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR03-AI-35 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR03-AI-35\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"000000\",\"newPassword\":\"OtherPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR03-36 - human/security",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR03-36\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - has message\", () => pm.expect(pm.response.json()).to.have.property(\"message\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"unknown.enumeration@example.test\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR03-37 - human/rate-limit",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR03-37\";",
+                  "pm.test(caseId + \" - status is 429\", () => pm.response.to.have.status(429));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "forgot-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR03-38 - human/concurrency",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR03-38\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"RacePass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR03-39 - human/state",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url: pm.environment.get(\"baseUrl\") + \"/api/forgot-password\", method:\"POST\", header:{\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"}, body:{mode:\"raw\",raw:JSON.stringify({email:pm.collectionVariables.get(\"resetEmail\")})}}, (e,r) => { if (!e && r.code===200) pm.collectionVariables.set(\"resetToken\", r.json().resetToken); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR03-39\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"{{resetToken}}\",\"newPassword\":\"StatePass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR03-40 - human/brute-force",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR03-40\";",
+                  "pm.test(caseId + \" - status is 429\", () => pm.response.to.have.status(429));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{resetEmail}}\",\"resetToken\":\"000000\",\"newPassword\":\"NewPass1!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "FR-09 Coupons",
+      "item": [
+        {
+          "name": "FR09-AI-001 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-001\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - has discount_amount\", () => pm.expect(pm.response.json()).to.have.property(\"discount_amount\"));",
+                  "pm.test(caseId + \" - has final_amount\", () => pm.expect(pm.response.json()).to.have.property(\"final_amount\"));",
+                  "pm.test(caseId + \" - discount formula\", () => pm.expect(pm.response.json().discount_amount).to.eql(50000));",
+                  "pm.test(caseId + \" - final amount formula\", () => pm.expect(pm.response.json().final_amount).to.eql(450000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-002 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-002\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - discount formula\", () => pm.expect(pm.response.json().discount_amount).to.eql(50000));",
+                  "pm.test(caseId + \" - final amount formula\", () => pm.expect(pm.response.json().final_amount).to.eql(550000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"BIGBUY\",\"total_amount\":600000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-003 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-003\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-004 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-004\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":null,\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-005 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-005\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-006 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-006\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"   \",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-007 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-007\";",
+                  "pm.test(caseId + \" - status is 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"NO_SUCH_CODE\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-008 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-008\";",
+                  "pm.test(caseId + \" - status is 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"save10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-009 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-009\";",
+                  "pm.test(caseId + \" - status is 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"INACTIVE_HW06\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-010 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-010\";",
+                  "pm.test(caseId + \" - status is 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"' OR 1=1 --\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-011 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-011\";",
+                  "pm.test(caseId + \" - status is 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"<script>alert(1)</script>\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-012 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-012\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-013 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-013\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":null,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-014 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-014\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":0,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-015 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-015\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":-1,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-016 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-016\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":\"500000\",\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-017 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-017\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":{\"value\":500000},\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-018 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-018\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":299999,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-019 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-019\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - discount formula\", () => pm.expect(pm.response.json().discount_amount).to.eql(30000));",
+                  "pm.test(caseId + \" - final amount formula\", () => pm.expect(pm.response.json().final_amount).to.eql(270000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":300000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-020 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-020\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - discount formula\", () => pm.expect(pm.response.json().discount_amount).to.eql(30000));",
+                  "pm.test(caseId + \" - final amount formula\", () => pm.expect(pm.response.json().final_amount).to.eql(270001));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":300001,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-021 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-021\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":300000.5,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-022 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-022\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"EXPIRED\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-023 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-023\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"EXPIRES_NOW_HW06\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-024 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-024\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-025 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-025\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"ZERO_HW06\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-026 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-026\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - discount formula\", () => pm.expect(pm.response.json().discount_amount).to.eql(500000));",
+                  "pm.test(caseId + \" - final amount formula\", () => pm.expect(pm.response.json().final_amount).to.eql(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"PERCENT100_HW06\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-027 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-027\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"PERCENT101_HW06\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-028 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-028\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"FIXED_BIG_HW06\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-029 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-029\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"BONUS_HW06\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-030 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-030\";",
+                  "pm.test(caseId + \" - status is 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-031 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-031\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer invalid.jwt.value"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-032 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-032\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":\"abc\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-033 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-033\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":2}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-034 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-034\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"VIP100\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR09-AI-035 - domain/security/schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR09-AI-035\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - has discount_amount\", () => pm.expect(pm.response.json()).to.have.property(\"discount_amount\"));",
+                  "pm.test(caseId + \" - has final_amount\", () => pm.expect(pm.response.json()).to.have.property(\"final_amount\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR09-36 - human/identity",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR09-36\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR09-37 - human/security",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR09-37\";",
+                  "pm.test(caseId + \" - status is 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR09-38 - human/concurrency",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR09-38\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":500000,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR09-39 - human/integrity",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR09-39\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/coupon-usage",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "coupon-usage"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"coupon_id\":999999}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR09-40 - human/overflow",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR09-40\";",
+                  "pm.test(caseId + \" - status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/apply-coupon",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "apply-coupon"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"SAVE10\",\"total_amount\":9007199254740992,\"user_id\":{{runnerId}}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "FR-12 Access Control",
+      "item": [
+        {
+          "name": "FR12-AI-01 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-01\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - body is an array\", () => pm.expect(pm.response.json()).to.be.an(\"array\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-02 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-02\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-03 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-03\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "pm.test(caseId + \" - does not expose password\", () => { for (const row of pm.response.json()) pm.expect(row).not.to.have.property(\"password\"); });",
+                  "pm.test(caseId + \" - does not expose reset_token\", () => { for (const row of pm.response.json()) pm.expect(row).not.to.have.property(\"reset_token\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-04 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-04\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-05 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-05\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-06 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-06\";",
+                  "pm.test(caseId + \" - status is 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-07 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-07\";",
+                  "pm.test(caseId + \" - status is 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": ""
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-08 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-08\";",
+                  "pm.test(caseId + \" - status is 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-09 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-09\";",
+                  "pm.test(caseId + \" - status is 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-10 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-10\";",
+                  "pm.test(caseId + \" - status is 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-11 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-11\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer  {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-12 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-12\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-13 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-13\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer abc.def"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-14 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-14\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{wrongSignatureToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-15 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-15\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tamperedToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-16 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-16\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{expiredToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-17 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-17\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{noneAlgToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-18 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-18\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-19 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-19\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-20 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-20\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{noRoleToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-21 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-21\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{upperRoleToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-22 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-22\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{nullRoleToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-23 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-23\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-24 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-24\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-25 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-25\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users/{{runnerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "{{runnerId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-26 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-26\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-27 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-27\";",
+                  "pm.test(caseId + \" - status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users/{{runnerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "{{runnerId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-28 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-28\";",
+                  "pm.test(caseId + \" - status is 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users/1%20OR%201=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "1%20OR%201=1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-29 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-29\";",
+                  "pm.test(caseId + \" - status is 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users/{{runnerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "{{runnerId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-30 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-30\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-31 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-31\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/orders/1/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "orders",
+                "1",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\":\"confirmed\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-32 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-32\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/coupons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "coupons"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"code\":\"NOAUTH_HW06\",\"type\":\"fixed\",\"discount_value\":1000,\"min_order_amount\":0,\"expired_at\":\"2099-12-31\",\"max_uses_per_user\":1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-33 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-33\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/coupons/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "coupons",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-34 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-34\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"products\":[{\"name\":\"P\",\"price\":1000,\"category_id\":1}]}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "FR12-AI-35 - access-control",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"FR12-AI-35\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"P\",\"price\":1000,\"category_id\":1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "H-FR12-36 - human/security",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR12-36\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{forgedAdminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "H-FR12-37 - human/security",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url:pm.environment.get(\"baseUrl\")+\"/api/admin/users/\"+pm.collectionVariables.get(\"runnerId\"),method:\"DELETE\",header:{Authorization:\"Bearer \"+pm.collectionVariables.get(\"adminToken\"),\"X-Student-Id\":\"23127081\"}},()=>{});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR12-37\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "H-FR12-38 - human/security",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({url:pm.environment.get(\"baseUrl\")+\"/api/users/me\",method:\"PUT\",header:{Authorization:\"Bearer \"+pm.collectionVariables.get(\"adminToken\"),\"Content-Type\":\"application/json\",\"X-Student-Id\":\"23127081\"},body:{mode:\"raw\",raw:JSON.stringify({name:\"Admin User\",shipping_address:\"\",phone:\"\",role:\"user\"})}},()=>{});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR12-38\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "H-FR12-39 - human/security",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR12-39\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "H-FR12-40 - human/security",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = \"H-FR12-40\";",
+                  "pm.test(caseId + \" - status is 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(caseId + \" - response is JSON\", () => { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/coupons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "coupons"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
