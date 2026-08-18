@@ -1,0 +1,11 @@
+id,method,endpoint,category,title,input,expected,review
+GEN-001,POST,/api/forgot-password,positive,valid request,valid values,success status and documented schema,INCOMPLETE
+GEN-002,POST,/api/forgot-password,domain,missing required input,omit one required value,4xx error; no state change,INCOMPLETE
+GEN-003,POST,/api/forgot-password,domain,empty required input,send an empty value,4xx error; no state change,INCOMPLETE
+GEN-004,POST,/api/forgot-password,domain,wrong input type,replace one value with the wrong JSON type,4xx error; no server crash,INCOMPLETE
+GEN-005,POST,/api/forgot-password,boundary,oversized input,send a very long string,4xx error or documented limit handling,INCOMPLETE
+GEN-006,POST,/api/forgot-password,security,SQL injection input,send ' OR 1=1 -- in a string field,request is rejected or treated as plain text,INCOMPLETE
+GEN-007,POST,/api/forgot-password,security,missing authorization,omit Authorization header,401 for protected endpoint,INCOMPLETE
+GEN-008,POST,/api/forgot-password,security,wrong role,use a normal-user token for an admin action,403 for admin endpoint,INCOMPLETE
+GEN-009,POST,/api/forgot-password,schema,response schema,send a valid request,field names and types exactly match the specification,INCOMPLETE
+GEN-010,POST,/api/forgot-password,header,student identifier,send X-Student-Id: 23127081,request is processed with the required header,INCOMPLETE
