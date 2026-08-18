@@ -4,6 +4,8 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 
 ## BUG-01 - Reset OTP has only four digits and no expiry state
 
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/1
+
 - Severity: High
 - Requirement: FR-03 and SEC-07 require at least six digits, an expiry time, and one-time use.
 - Steps: Register a user, call `POST /api/forgot-password`, and inspect `resetToken`.
@@ -13,6 +15,8 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 
 ## BUG-02 - Forgot-password reveals whether an account exists
 
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/2
+
 - Severity: Medium
 - Steps: Call forgot-password once with a registered email and once with an unknown email.
 - Expected: Both requests return the same generic response.
@@ -20,6 +24,8 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 - Evidence: [Newman failure](../images/bug-02-account-enumeration.png)
 
 ## BUG-03 - Reset accepts weak passwords and stores plaintext
+
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/3
 
 - Severity: Critical
 - Requirement: FR-01 password complexity and SEC-01 password hashing.
@@ -30,6 +36,8 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 
 ## BUG-04 - Percent coupon formula produces a large negative discount
 
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/4
+
 - Severity: Critical
 - Requirement: `discount = total × discount_value / 100`.
 - Steps: Apply `SAVE10` to 500,000 VND.
@@ -38,6 +46,8 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 - Evidence: [Newman failure](../images/bug-04-coupon-formula.png)
 
 ## BUG-05 - Coupon minimum boundary incorrectly rejects equality
+
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/5
 
 - Severity: High
 - Requirement: FR-09 C3 says total must be greater than or equal to the minimum.
@@ -48,6 +58,8 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 
 ## BUG-06 - Apply-coupon works without JWT and trusts body identity
 
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/6
+
 - Severity: Critical
 - Requirement: FR-09 C4 and SEC-02 require a valid JWT.
 - Steps: Call `POST /api/apply-coupon` without Authorization. Omit or change `user_id`.
@@ -56,6 +68,8 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 - Evidence: [Newman failure](../images/bug-06-coupon-auth.png)
 
 ## BUG-07 - Normal users can access and mutate admin APIs
+
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/7
 
 - Severity: Critical
 - Requirement: FR-12 and SEC-03 require `role = admin`.
@@ -66,6 +80,8 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 
 ## BUG-08 - Profile endpoint allows role escalation
 
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/8
+
 - Severity: Critical
 - Requirement: FR-04 and SEC-06 forbid client changes to `role`.
 - Steps: Login as a normal user and send `PUT /api/users/me` with `"role":"admin"`; login again and access an admin API.
@@ -75,10 +91,11 @@ Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 
 
 ## BUG-09 - Hard-coded JWT secret allows forged admin tokens
 
+- GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/9
+
 - Severity: Critical
 - Requirement: SEC-02 and SEC-03.
 - Steps: Read the public `SECRET_KEY` in `server.js`, sign `{id:1, role:"admin"}`, and call `/api/admin/users`.
 - Expected: Attacker-created token is rejected.
 - Actual: 200 with the complete user list.
 - Evidence: [Newman failure](../images/bug-09-forged-jwt.png)
-
