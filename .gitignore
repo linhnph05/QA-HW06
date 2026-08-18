@@ -1,0 +1,7 @@
+.DS_Store
+.tokensave/
+trash/
+tmp/
+node_modules/
+*.zip
+
