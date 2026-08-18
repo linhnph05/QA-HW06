@@ -1,0 +1,58 @@
+name: API Tests
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install backend and Newman
+        run: |
+          cd eshop-sut/backend
+          npm ci
+          npm install --global newman
+
+      - name: Start EShop backend
+        run: |
+          cd eshop-sut/backend
+          node server.js > /tmp/eshop-backend.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --silent --fail http://127.0.0.1:3000/api/products > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/eshop-backend.log
+          exit 1
+
+      - name: Run 120-case Newman baseline
+        run: |
+          mkdir -p ci-results
+          newman run collections/EShop-HW06-ci-baseline.postman_collection.json \
+            -e collections/local.postman_environment.json \
+            -r cli,json \
+            --reporter-json-export ci-results/newman-ci.json \
+            --color off
+
+      - name: Upload Newman result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-ci-result
+          path: ci-results/
+
