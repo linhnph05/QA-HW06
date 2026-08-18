@@ -1,3 +1,15 @@
+commit b620798a0549d8b6823b5e3e72ffaba8907f18da
+Author: linhnph05 <linhnph05@gmail.com>
+Date:   2026-08-18 14:18:24 +0700
+
+    submission: package HW06 artifacts
+
+commit c84b55dee2caa0324b2e52beec567b1d6f50599a
+Author: linhnph05 <linhnph05@gmail.com>
+Date:   2026-08-18 14:17:24 +0700
+
+    docs: add command-generated git log
+
 commit 929781b237a0ae3ba1874c13f62d2d09177371ac
 Author: linhnph05 <linhnph05@gmail.com>
 Date:   2026-08-18 14:15:42 +0700
