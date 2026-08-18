@@ -1,0 +1,12 @@
+flowchart LR
+    A[Markdown API specification] --> B[Endpoint parser]
+    B --> C[Generic test templates]
+    C --> D[Domain partitions]
+    C --> E[State and security checks]
+    C --> F[Schema checks]
+    D --> G[CSV draft]
+    E --> G
+    F --> G
+    G --> H[Human audit]
+    H -->|correct| I[Executable Postman cases]
+    H -->|unclear| J[Mark INCOMPLETE]
