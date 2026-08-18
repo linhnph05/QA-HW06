@@ -43,7 +43,7 @@ I converted the reviewed cases to one data-driven Postman collection and ran it 
 | FR-12 | 40 | 17 | 23 | 23 |
 | **Total** | **120** | **54** | **66** | **74** |
 
-There were 269 assertions: 195 passed and 74 failed. Failures were not hidden because many show real security or business-logic bugs. Evidence is in `newman/newman-report.html`, `newman/newman-results.json`, `results/*.csv`, and `images/newman-summary.png`.
+There were 269 assertions: 195 passed and 74 failed. Failures were not hidden because many show real security or business-logic bugs. Evidence is in `newman/newman-report.html`, `newman/newman-results.json`, `results/*.csv`, `images/newman-summary.png`, and `images/student-id-console.png`. The console screenshot proves that the pre-request script added `X-Student-Id: 23127081` to the executed requests.
 
 ## 4. Postman and Newman Features Used
 
