@@ -1,0 +1,41 @@
+id,api,source,category,method,path,auth,body,expected,expectedResult,auditStatus,auditReason,executionStatus,actualResult
+FR12-AI-01,FR12,AI,access-control,GET,/api/admin/users,admin,,200,HTTP 200 and valid JSON contract,INCOMPLETE,AI oracle completed by human review,PASS,HTTP 200; 0 failed assertions
+FR12-AI-02,FR12,AI,access-control,GET,/api/admin/users,admin,,200,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 200; 0 failed assertions
+FR12-AI-03,FR12,AI,access-control,GET,/api/admin/users,admin,,200,HTTP 200 and valid JSON contract,INCOMPLETE,AI oracle completed by human review,PASS,HTTP 200; 0 failed assertions
+FR12-AI-04,FR12,AI,access-control,GET,/api/admin/users,admin,,200,HTTP 200 and valid JSON contract,INCOMPLETE,AI oracle completed by human review,PASS,HTTP 200; 0 failed assertions
+FR12-AI-05,FR12,AI,access-control,GET,/api/admin/users,admin,,200,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 200; 0 failed assertions
+FR12-AI-06,FR12,AI,access-control,GET,/api/admin/users,none,,401,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 401; 0 failed assertions
+FR12-AI-07,FR12,AI,access-control,GET,/api/admin/users,empty,,401,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 403; 1 failed assertion
+FR12-AI-08,FR12,AI,access-control,GET,/api/admin/users,bearer-only,,401,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 401; 0 failed assertions
+FR12-AI-09,FR12,AI,access-control,GET,/api/admin/users,raw-admin,,401,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 401; 0 failed assertions
+FR12-AI-10,FR12,AI,access-control,GET,/api/admin/users,basic-admin,,401,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-11,FR12,AI,access-control,GET,/api/admin/users,double-space-admin,,200,HTTP 200 and valid JSON contract,INVALID,AI expectation corrected by human review,FAIL,HTTP 403; 1 failed assertion
+FR12-AI-12,FR12,AI,access-control,GET,/api/admin/users,lower-bearer-admin,,200,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 200; 0 failed assertions
+FR12-AI-13,FR12,AI,access-control,GET,/api/admin/users,malformed,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 403; 0 failed assertions
+FR12-AI-14,FR12,AI,access-control,GET,/api/admin/users,wrong-signature,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 403; 0 failed assertions
+FR12-AI-15,FR12,AI,access-control,GET,/api/admin/users,tampered,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 403; 0 failed assertions
+FR12-AI-16,FR12,AI,access-control,GET,/api/admin/users,expired,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 403; 0 failed assertions
+FR12-AI-17,FR12,AI,access-control,GET,/api/admin/users,none-alg,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 403; 0 failed assertions
+FR12-AI-18,FR12,AI,access-control,GET,/api/admin/users,user,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-19,FR12,AI,access-control,GET,/api/admin/users,admin,,200,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 200; 0 failed assertions
+FR12-AI-20,FR12,AI,access-control,GET,/api/admin/users,no-role,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-21,FR12,AI,access-control,GET,/api/admin/users,upper-role,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-22,FR12,AI,access-control,GET,/api/admin/users,null-role,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-23,FR12,AI,access-control,GET,/api/admin/users,user,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-24,FR12,AI,access-control,GET,/api/admin/users,user,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-25,FR12,AI,access-control,DELETE,/api/admin/users/{{runnerId}},user,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-26,FR12,AI,access-control,DELETE,/api/admin/users/1,user,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-27,FR12,AI,access-control,DELETE,/api/admin/users/{{runnerId}},admin,,200,HTTP 200 and valid JSON contract,INCOMPLETE,AI oracle completed by human review,PASS,HTTP 200; 0 failed assertions
+FR12-AI-28,FR12,AI,access-control,DELETE,/api/admin/users/1%20OR%201=1,admin,,404,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-29,FR12,AI,access-control,DELETE,/api/admin/users/{{runnerId}},none,,401,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,PASS,HTTP 401; 0 failed assertions
+FR12-AI-30,FR12,AI,access-control,GET,/api/admin/orders,user,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-31,FR12,AI,access-control,PUT,/api/admin/orders/1/status,user,"{""status"":""confirmed""}",403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 404; 1 failed assertion
+FR12-AI-32,FR12,AI,access-control,POST,/api/admin/coupons,user,"{""code"":""NOAUTH_HW06"",""type"":""fixed"",""discount_value"":1000,""min_order_amount"":0,""expired_at"":""2099-12-31"",""max_uses_per_user"":1}",403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-33,FR12,AI,access-control,DELETE,/api/admin/coupons/1,user,,403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-34,FR12,AI,access-control,POST,/api/admin/import-products,user,"{""products"":[{""name"":""P"",""price"":1000,""category_id"":1}]}",403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+FR12-AI-35,FR12,AI,access-control,POST,/api/products,user,"{""name"":""P"",""price"":1000,""category_id"":1}",403,HTTP 200 and valid JSON contract,VALID,AI case accepted after human review,FAIL,HTTP 200; 1 failed assertion
+H-FR12-36,FR12,HUMAN,human/security,GET,/api/admin/users,forged-known-secret,,403,HTTP 200 and valid JSON contract,HUMAN,Human extension after AI review,FAIL,HTTP 200; 1 failed assertion
+H-FR12-37,FR12,HUMAN,human/security,GET,/api/admin/users,deleted-user,,403,HTTP 200 and valid JSON contract,HUMAN,Human extension after AI review,FAIL,HTTP 200; 1 failed assertion
+H-FR12-38,FR12,HUMAN,human/security,GET,/api/admin/users,stale-admin,,403,HTTP 200 and valid JSON contract,HUMAN,Human extension after AI review,FAIL,HTTP 200; 1 failed assertion
+H-FR12-39,FR12,HUMAN,human/security,DELETE,/api/admin/users/1,admin,,403,HTTP 200 and valid JSON contract,HUMAN,Human extension after AI review,FAIL,HTTP 200; 1 failed assertion
+H-FR12-40,FR12,HUMAN,human/security,GET,/api/coupons,user,,403,HTTP 200 and valid JSON contract,HUMAN,Human extension after AI review,FAIL,HTTP 200; 1 failed assertion
