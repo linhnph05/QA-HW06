@@ -7,3 +7,5 @@ It clearly shows:
 - `X-Student-Id header: 23127081`
 - Requests sent to `http://127.0.0.1:3000`
 - Newman test and assertion output
+
+![X-Student-Id header in the Newman console](images/student-id-console.png)

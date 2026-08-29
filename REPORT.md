@@ -13,35 +13,9 @@ I tested three EShop features:
 |---|---|---|
 | A | FR-03 Forgot and reset password | `POST /api/forgot-password`, `POST /api/reset-password` |
 | B | FR-09 Discount coupons | `POST /api/apply-coupon`, `POST /api/coupon-usage` |
-| C | FR-12 Access control | `GET /api/admin/users` plus related protected admin endpoints listed below |
+| C | FR-12 Access control | `GET /api/admin/users`, `DELETE /api/admin/users/:id`,`GET /api/admin/orders`, `PUT /api/admin/orders/:id/status`, `GET /api/coupons`, `POST /api/admin/coupons`, `DELETE /api/admin/coupons/:id`, `POST /api/admin/import-products`, `POST /api/products` |
 
 I used the API specification, security rules SEC-01 to SEC-07, and the running backend at `http://127.0.0.1:3000`.
-
-### Exact endpoints used
-
-For FR-03, I sent requests to:
-
-- `POST /api/forgot-password` to request an OTP.
-- `POST /api/reset-password` to validate the OTP and change the password.
-
-For FR-09, I sent requests to:
-
-- `POST /api/apply-coupon` to validate a coupon and calculate the discount.
-- `POST /api/coupon-usage` to test coupon usage records and usage-limit state.
-
-For FR-12, `GET /api/admin/users` was the representative access-control API. I also tested these protected endpoints to check whether role enforcement was consistent:
-
-- `GET /api/admin/users`
-- `DELETE /api/admin/users/:id`
-- `GET /api/admin/orders`
-- `PUT /api/admin/orders/:id/status`
-- `GET /api/coupons`
-- `POST /api/admin/coupons`
-- `DELETE /api/admin/coupons/:id`
-- `POST /api/admin/import-products`
-- `POST /api/products`
-
-The collection also used `POST /api/register` and `POST /api/login` during setup. These requests created test users and obtained normal-user and admin tokens. I did not count the setup requests as selected APIs.
 
 ## 2. AI-First Test Design and Human Audit
 
@@ -62,6 +36,42 @@ The human additions focus on cases that AI often misses: account enumeration, ra
 
 I converted the reviewed cases to one data-driven Postman collection and ran it with Newman 6.2.2. A collection pre-request script adds `X-Student-Id: 23127081` to every request.
 
+### Commands and Postman steps used
+
+I started the local backend with:
+
+```bash
+cd eshop-sut/backend
+node server.js
+```
+
+Postman desktop did not use a shell command. I used these steps in the application:
+
+1. Click **Import** and import `collections/EShop-HW06.postman_collection.json`.
+2. Import `collections/local.postman_environment.json` and select the local environment.
+3. Open the collection runner and run the FR-03, FR-09, and FR-12 folders against `http://127.0.0.1:3000`.
+4. Check the Postman Console to confirm `X-Student-Id: 23127081` on each request.
+
+I ran the strict local suite and exported the JSON and HTML reports with:
+
+```bash
+newman run collections/EShop-HW06.postman_collection.json \
+  -e collections/local.postman_environment.json \
+  -r cli,json,html \
+  --reporter-json-export newman/newman-results.json \
+  --reporter-html-export newman/newman-report.html
+```
+
+GitHub Actions ran the passing characterization baseline with:
+
+```bash
+newman run collections/EShop-HW06-ci-baseline.postman_collection.json \
+  -e collections/local.postman_environment.json \
+  -r cli,json \
+  --reporter-json-export ci-results/newman-ci.json \
+  --color off
+```
+
 | Feature | Executed | Passed | Failed | Failed assertions |
 |---|---:|---:|---:|---:|
 | FR-03 | 40 | 17 | 23 | 25 |
@@ -70,6 +80,10 @@ I converted the reviewed cases to one data-driven Postman collection and ran it 
 | **Total** | **120** | **54** | **66** | **74** |
 
 There were 269 assertions: 195 passed and 74 failed. Failures were not hidden because many show real security or business-logic bugs. Evidence is in `newman/newman-report.html`, `newman/newman-results.json`, `results/*.csv`, `images/newman-summary.png`, and `images/student-id-console.png`. The console screenshot proves that the pre-request script added `X-Student-Id: 23127081` to the executed requests.
+
+![Newman execution summary](images/newman-summary.png)
+
+![X-Student-Id header in the Newman console](images/student-id-console.png)
 
 ## 4. Postman and Newman Features Used
 
@@ -100,6 +114,8 @@ I reported nine genuine bugs in both `reports/bug-report.md` and GitHub Issues:
 
 Every issue includes its own screenshot. The Issues-page evidence is `images/github-issues.png`.
 
+![GitHub Issues page with the nine reported bugs](images/github-issues.png)
+
 ## 6. CI/CD
 
 The workflow in `.github/workflows/api-tests.yml` checks out the SUT submodule, installs Node.js and Newman, starts the backend, runs all 120 baseline cases, and uploads the Newman JSON artifact.
@@ -111,6 +127,10 @@ The workflow in `.github/workflows/api-tests.yml` checks out the SUT submodule, 
 - Final restored green run: https://github.com/linhnph05/QA-HW06/actions/runs/32109618742
 
 The red sample changes only one expected status from 200 to 418. It produces exactly one failed assertion. I restored it afterward. More detail is in `reports/ci-cd-report.md`.
+
+![All-passing GitHub Actions run](images/ci-pass.png)
+
+![GitHub Actions run with exactly one failed assertion](images/ci-fail.png)
 
 ## 7. AI-Driven Test Generator Skill
 
