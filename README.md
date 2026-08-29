@@ -35,7 +35,7 @@ The failed cases are kept because they show real requirement mismatches in the S
 ## Main Files
 
 - `REPORT.md`: main homework report
-- `AI-AUDIT-REPORT.md`: AI-use declaration and exact interaction-log links
+- `AI-AUDIT-REPORT.md`: AI-use declaration with the exact interaction logs embedded
 - `reports/ci-cd-report.md`: CI/CD evidence
 - `reports/bug-report.md`: nine bug reports and issue links
 - `test-cases/test-cases.csv`: all 120 test cases
