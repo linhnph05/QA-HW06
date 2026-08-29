@@ -1,3 +1,27 @@
+commit 396c6b745349496d483c48fb1537bb39adc03463
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 22:42:49 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 22:42:49 +0700
+
+    docs: embed student-drawn diagram in report
+
+commit 968a42dedce82a7854330994c4e87771b52224f9
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 22:41:40 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 22:41:40 +0700
+
+    docs: add student-drawn generator diagram
+
+commit 84a2aac0679eaf00b4efdebebb6843cd768527c9
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 21:34:25 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 21:34:25 +0700
+
+    submission: refresh final package
+
 commit 7446caa3215afa221b8cd8e3309734b0eddf90bc
 Author:     linhnph05 <linhnph05@gmail.com>
 AuthorDate: 2026-08-29 21:33:11 +0700
