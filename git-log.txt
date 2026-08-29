@@ -1,3 +1,15 @@
+commit bb28c2a960f220ba9b594972563f6b88e373030a
+Author: linhnph05 <linhnph05@gmail.com>
+Date:   2026-08-29 16:59:04 +0700
+
+    docs: add execution commands and embed evidence images
+
+commit 01dd917a68769712000a14892110c332871076f6
+Author: linhnph05 <linhnph05@gmail.com>
+Date:   2026-08-29 16:48:57 +0700
+
+    submission: package synchronized AI logs
+
 commit 874847142215337edd6e0bcaff6c231dcf9e21c2
 Author: linhnph05 <linhnph05@gmail.com>
 Date:   2026-08-29 16:47:37 +0700
