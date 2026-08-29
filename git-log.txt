@@ -1,3 +1,19 @@
+commit cd8eb98711f23fe323919b39a4ca5f70a8fee08d
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-30 00:43:31 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-30 00:43:31 +0700
+
+    docs: rebuild PDFs from revised reports
+
+commit 085f09c2d8344a744424aecfd6a2ffa7c492b1a2
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-30 00:35:59 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-30 00:35:59 +0700
+
+    submission: package updated bug report
+
 commit e934ee06673cf306b483a49fda0fed0a4eec765c
 Author:     linhnph05 <linhnph05@gmail.com>
 AuthorDate: 2026-08-30 00:35:44 +0700
