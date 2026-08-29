@@ -152,7 +152,7 @@ The red sample changes only one expected status from 200 to 418. It produces exa
 
 I created the reusable `api-test-generator` Agent Skill. It reads Markdown endpoint definitions and writes a CSV test draft. The draft includes domain, boundary, security, header, and schema templates. All generated rows start as `INCOMPLETE` so a human must audit them. The skill validator passed, and the FR-03 demonstration produced `test-cases/fr03-skill-demo.csv`.
 
-The self-designed diagram and pseudocode are in `reports/api-test-generator-design.md`.
+I drew the generator diagram by hand. The PNG and pseudocode are in `images/api-test-generator-diagram.png` and `reports/api-test-generator-design.md`.
 
 ## 8. AI Critique
 

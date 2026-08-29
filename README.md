@@ -45,5 +45,6 @@ The failed cases are kept because they show real requirement mismatches in the S
 - `newman/newman-report.html`: Newman HTML report
 - `output/pdf/23127081-HW06-AI-Critique.pdf`: standalone AI critique PDF
 - `api-test-generator/`: reusable Agent Skill
+- `images/api-test-generator-diagram.png`: student-drawn generator diagram
 
 The video is not included, as requested.

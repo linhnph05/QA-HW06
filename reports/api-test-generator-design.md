@@ -4,20 +4,9 @@ I designed this generator as a small review pipeline. The program finds endpoint
 
 ## Self-Drawn Diagram
 
-```mermaid
-flowchart LR
-    A[Markdown API specification] --> B[Endpoint parser]
-    B --> C[Generic test templates]
-    C --> D[Domain partitions]
-    C --> E[State and security checks]
-    C --> F[Schema checks]
-    D --> G[CSV draft]
-    E --> G
-    F --> G
-    G --> H[Human audit]
-    H -->|correct| I[Executable Postman cases]
-    H -->|unclear| J[Mark INCOMPLETE]
-```
+I drew this diagram by hand to show the generator flow and the human decision at the end.
+
+![Self-drawn API test generator diagram](../images/api-test-generator-diagram.png)
 
 ## Pseudocode
 
