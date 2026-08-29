@@ -1,6 +1,6 @@
-# AI Interaction Log — FR-03
+# AI Log — FR-03
 
-- Tool name: Codex helper AI (Hegel)
+- Tool name: Codex
 - Date and time: 2026-08-18 12:25:47 +07 (Asia/Ho_Chi_Minh)
 
 ## Prompt

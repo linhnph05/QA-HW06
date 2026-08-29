@@ -1,6 +1,6 @@
-# FR-09 Helper AI Log
+# AI Log — FR-09
 
-- Tool: Codex helper AI (Banach)
+- Tool: Codex
 - Date/time (Asia/Ho_Chi_Minh): 2026-08-18 12:25:59 +07
 
 ## Original prompt

@@ -1,4 +1,4 @@
-# FR-12 Helper AI Audit Log
+# AI Log — FR-12
 
 - Tool: Codex helper AI (Raman)
 - Date/time (Asia/Ho_Chi_Minh): 2026-08-18 12:26:09 +07

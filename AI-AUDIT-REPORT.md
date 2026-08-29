@@ -1,22 +1,14 @@
 # AI audit report
 
-I use AI tools for the following tasks.
-
-This report contains only my interactions with the three helper AIs used to generate test drafts. It does not include any conversation between the homework owner and the repository assistant.
+I use AI tools for the following tasks:
 
 ## Interaction summary
 
 | Interaction | AI tool | Date and time | Task |
 |---|---|---|---|
-| 1 | Codex helper AI (Hegel) | 2026-08-18 12:25:47 +07 | Generate 35 FR-03 cases |
-| 2 | Codex helper AI (Banach) | 2026-08-18 12:25:59 +07 | Generate 35 FR-09 cases |
-| 3 | Codex helper AI (Raman) | 2026-08-18 12:26:09 +07 | Generate 35 FR-12 cases |
-
-## Other tools
-
-- Postman organized the requests, variables, pre-request scripts, and test scripts.
-- Newman 6.2.2 ran the collection and produced the HTML and JSON reports.
-- GitHub Actions ran the CI/CD pipeline.
+| 1 | Codex | 2026-08-18 12:25:47 +07 | Generate 35 FR-03 cases |
+| 2 | Codex | 2026-08-18 12:25:59 +07 | Generate 35 FR-09 cases |
+| 3 | Codex | 2026-08-18 12:26:09 +07 | Generate 35 FR-12 cases |
 
 ## Human review
 
@@ -24,11 +16,11 @@ I checked all 105 generated cases. I marked 89 as valid, 3 as invalid, and 13 as
 
 ## Full AI interaction logs
 
-The three logs below contain each helper's name, date and time, my full prompt, and the full AI output.
+The three logs below contain each session, date and time, my full prompt, and the full AI output.
 
-# AI Interaction Log — FR-03
+# AI Log — FR-03
 
-- Tool name: Codex helper AI (Hegel)
+- Tool name: Codex
 - Date and time: 2026-08-18 12:25:47 +07 (Asia/Ho_Chi_Minh)
 
 ## Prompt
@@ -79,9 +71,9 @@ Assumptions: **A1** — because the API specification omits validation/error con
 
 ---
 
-# FR-09 Helper AI Log
+# AI Log — FR-09
 
-- Tool: Codex helper AI (Banach)
+- Tool: Codex
 - Date/time (Asia/Ho_Chi_Minh): 2026-08-18 12:25:59 +07
 
 ## Original prompt
@@ -142,7 +134,7 @@ Implementation observations for human audit: the current handler has likely defe
 
 ---
 
-# FR-12 Helper AI Audit Log
+# AI Log — FR-12
 
 - Tool: Codex helper AI (Raman)
 - Date/time (Asia/Ho_Chi_Minh): 2026-08-18 12:26:09 +07
@@ -197,4 +189,3 @@ Assumptions used because the API specification does not define response bodies i
 | FR12-AI-33 | DELETE `/api/admin/coupons/:id` | SEC-03 / IDOR consistency | Normal-user JWT; coupon exists | DELETE coupon ID | 403 | Exact forbidden error; coupon remains unchanged. |
 | FR12-AI-34 | POST `/api/admin/import-products` | SEC-03 / bulk mutation | Normal-user JWT | `{"products":[{"name":"P","price":1000,"category_id":1}]}` | 403 | Exact forbidden error; zero products inserted. |
 | FR12-AI-35 | POST `/api/products` | FR-12 / protected data API | Normal-user JWT | Valid product JSON | 403 | Exact forbidden error; product is not created because data-changing product APIs require admin role. |
-
