@@ -1,3 +1,15 @@
+commit 874847142215337edd6e0bcaff6c231dcf9e21c2
+Author: linhnph05 <linhnph05@gmail.com>
+Date:   2026-08-29 16:47:37 +0700
+
+    docs: sync AI log details across test cases
+
+commit 48de4bf5fb291f71508f76f10b8ed706b7c67622
+Author: linhnph05 <linhnph05@gmail.com>
+Date:   2026-08-29 16:28:21 +0700
+
+    submission: include embedded AI audit logs
+
 commit 1e3b9b13fd037c9a07c0ff5418c54e0852a1ab57
 Author: linhnph05 <linhnph05@gmail.com>
 Date:   2026-08-29 16:27:12 +0700
