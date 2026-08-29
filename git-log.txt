@@ -1,3 +1,11 @@
+commit 6e47bcac49f90dc0cb1662ea5120c3f79de93160
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-30 00:44:08 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-30 00:44:08 +0700
+
+    submission: package revised PDFs
+
 commit cd8eb98711f23fe323919b39a4ca5f70a8fee08d
 Author:     linhnph05 <linhnph05@gmail.com>
 AuthorDate: 2026-08-30 00:43:31 +0700
