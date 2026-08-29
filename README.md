@@ -39,8 +39,11 @@ The failed cases are kept because they show real requirement mismatches in the S
 - `reports/ci-cd-report.md`: CI/CD evidence
 - `reports/bug-report.md`: nine bug reports and issue links
 - `test-cases/test-cases.csv`: all 120 test cases
+- `test-cases/23127081-HW06-Test-Cases.xlsx`: Excel test cases and summary
 - `collections/EShop-HW06.postman_collection.json`: strict bug-finding collection
+- `collections/EShop-HW06-data-driven.postman_collection.json`: CSV-driven FR-03 demonstration
 - `newman/newman-report.html`: Newman HTML report
+- `output/pdf/23127081-HW06-AI-Critique.pdf`: standalone AI critique PDF
 - `api-test-generator/`: reusable Agent Skill
 
 The video is not included, as requested.

@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "EShop HW06 Data-Driven Demo - 23127081",
+    "description": "A real Newman iteration-data run for FR-03. Each CSV row supplies the email, expected status, schema kind, and case ID.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.request.headers.upsert({key: \"X-Student-Id\", value: \"23127081\"});",
+          "console.log(\"Data row:\", pm.iterationData.get(\"case_id\"), \"X-Student-Id:\", pm.request.headers.get(\"X-Student-Id\"));"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "FR-03 forgot-password from CSV row",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"{{email}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/forgot-password",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "forgot-password"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const caseId = pm.iterationData.get(\"case_id\");",
+              "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+              "const schemaKind = pm.iterationData.get(\"schema_kind\");",
+              "pm.test(caseId + \" - status\", () => pm.response.to.have.status(expectedStatus));",
+              "pm.test(caseId + \" - student header\", () => pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127081\"));",
+              "pm.test(caseId + \" - JSON content type\", () => pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"));",
+              "pm.test(caseId + \" - exact response schema\", () => {",
+              "  const body = pm.response.json();",
+              "  const keys = Object.keys(body).sort();",
+              "  if (schemaKind === \"success\") {",
+              "    pm.expect(keys).to.eql([\"message\", \"resetToken\"]);",
+              "    pm.expect(body.message).to.be.a(\"string\");",
+              "    pm.expect(body.resetToken).to.be.a(\"string\");",
+              "  } else {",
+              "    pm.expect(keys).to.eql([\"error\"]);",
+              "    pm.expect(body.error).to.be.a(\"string\");",
+              "  }",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

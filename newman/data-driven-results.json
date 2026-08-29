@@ -1,0 +1,1282 @@
+{
+  "collection": {
+    "item": [
+      {
+        "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+        "name": "FR-03 forgot-password from CSV row",
+        "request": {
+          "url": {
+            "path": [
+              "api",
+              "forgot-password"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"email\":\"{{email}}\"}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "a7b2632a-5c00-4c3d-a2e5-7c9322b5987a",
+              "type": "text/javascript",
+              "exec": [
+                "const caseId = pm.iterationData.get(\"case_id\");",
+                "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                "const schemaKind = pm.iterationData.get(\"schema_kind\");",
+                "pm.test(caseId + \" - status\", () => pm.response.to.have.status(expectedStatus));",
+                "pm.test(caseId + \" - student header\", () => pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127081\"));",
+                "pm.test(caseId + \" - JSON content type\", () => pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"));",
+                "pm.test(caseId + \" - exact response schema\", () => {",
+                "  const body = pm.response.json();",
+                "  const keys = Object.keys(body).sort();",
+                "  if (schemaKind === \"success\") {",
+                "    pm.expect(keys).to.eql([\"message\", \"resetToken\"]);",
+                "    pm.expect(body.message).to.be.a(\"string\");",
+                "    pm.expect(body.resetToken).to.be.a(\"string\");",
+                "  } else {",
+                "    pm.expect(keys).to.eql([\"error\"]);",
+                "    pm.expect(body.error).to.be.a(\"string\");",
+                "  }",
+                "});"
+              ],
+              "_lastExecutionId": "b3c68137-a023-484d-85fa-0660b22ae5f3"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "360970c2-c051-476f-9cd1-7c36f725f93b",
+          "type": "text/javascript",
+          "exec": [
+            "pm.request.headers.upsert({key: \"X-Student-Id\", value: \"23127081\"});",
+            "console.log(\"Data row:\", pm.iterationData.get(\"case_id\"), \"X-Student-Id:\", pm.request.headers.get(\"X-Student-Id\"));"
+          ],
+          "_lastExecutionId": "4787e431-7c10-421f-be61-89f0cdd56529"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "2a5bc52a-4e84-4d5f-a31f-37bbc7e36417",
+      "name": "EShop HW06 Data-Driven Demo - 23127081",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "A real Newman iteration-data run for FR-03. Each CSV row supplies the email, expected status, schema kind, and case ID.",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_using": "Postman"
+    },
+    "id": "7b850855-ad21-429b-b853-5ba8f3e708f4",
+    "name": "EShop Local",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://127.0.0.1:3000",
+        "key": "baseUrl"
+      }
+    ]
+  },
+  "globals": {
+    "id": "e25d32f5-efbc-401e-9a90-bc77f022811c",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 16,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 17.5,
+      "responseMin": 4,
+      "responseMax": 36,
+      "responseSd": 13.219304066402287,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1788005238767,
+      "completed": 1788005239007
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 4,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "176adf17-5acb-4b26-876e-d41925588c33",
+          "httpRequestId": "79ecf6ba-7163-4a2f-83f1-0345a82c9fd2"
+        },
+        "item": {
+          "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+          "name": "FR-03 forgot-password from CSV row",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "forgot-password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{email}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a7b2632a-5c00-4c3d-a2e5-7c9322b5987a",
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = pm.iterationData.get(\"case_id\");",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const schemaKind = pm.iterationData.get(\"schema_kind\");",
+                  "pm.test(caseId + \" - status\", () => pm.response.to.have.status(expectedStatus));",
+                  "pm.test(caseId + \" - student header\", () => pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127081\"));",
+                  "pm.test(caseId + \" - JSON content type\", () => pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"));",
+                  "pm.test(caseId + \" - exact response schema\", () => {",
+                  "  const body = pm.response.json();",
+                  "  const keys = Object.keys(body).sort();",
+                  "  if (schemaKind === \"success\") {",
+                  "    pm.expect(keys).to.eql([\"message\", \"resetToken\"]);",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.resetToken).to.be.a(\"string\");",
+                  "  } else {",
+                  "    pm.expect(keys).to.eql([\"error\"]);",
+                  "    pm.expect(body.error).to.be.a(\"string\");",
+                  "  }",
+                  "});"
+                ],
+                "_lastExecutionId": "b3c68137-a023-484d-85fa-0660b22ae5f3"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "forgot-password"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127081"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "c13ce660-a6cd-46f8-99a1-464e7e3c387a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "26",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"email\":\"test@eshop.com\"}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "6f39831d-42ab-4bfe-be51-c1166b34efb5",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "83"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"53-DoFFHiUs06ee/FCPbdlF/jfhg9k\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 29 Aug 2026 12:07:18 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              77,
+              195,
+              163,
+              32,
+              196,
+              145,
+              225,
+              186,
+              183,
+              116,
+              32,
+              108,
+              225,
+              186,
+              161,
+              105,
+              32,
+              109,
+              225,
+              186,
+              173,
+              116,
+              32,
+              107,
+              104,
+              225,
+              186,
+              169,
+              117,
+              32,
+              196,
+              145,
+              195,
+              163,
+              32,
+              196,
+              145,
+              198,
+              176,
+              225,
+              187,
+              163,
+              99,
+              32,
+              116,
+              225,
+              186,
+              161,
+              111,
+              34,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              84,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              54,
+              54,
+              53,
+              50,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 36,
+          "responseSize": 83
+        },
+        "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+        "assertions": [
+          {
+            "assertion": "DD-FR03-01 - status",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-01 - student header",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-01 - JSON content type",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-01 - exact response schema",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "b5bdaa0e-c6eb-4252-ad8f-ff12b2f4e2c6",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "dc3426f4-0396-4106-93d3-785bca5f6795"
+        },
+        "item": {
+          "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+          "name": "FR-03 forgot-password from CSV row",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "forgot-password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{email}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a7b2632a-5c00-4c3d-a2e5-7c9322b5987a",
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = pm.iterationData.get(\"case_id\");",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const schemaKind = pm.iterationData.get(\"schema_kind\");",
+                  "pm.test(caseId + \" - status\", () => pm.response.to.have.status(expectedStatus));",
+                  "pm.test(caseId + \" - student header\", () => pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127081\"));",
+                  "pm.test(caseId + \" - JSON content type\", () => pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"));",
+                  "pm.test(caseId + \" - exact response schema\", () => {",
+                  "  const body = pm.response.json();",
+                  "  const keys = Object.keys(body).sort();",
+                  "  if (schemaKind === \"success\") {",
+                  "    pm.expect(keys).to.eql([\"message\", \"resetToken\"]);",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.resetToken).to.be.a(\"string\");",
+                  "  } else {",
+                  "    pm.expect(keys).to.eql([\"error\"]);",
+                  "    pm.expect(body.error).to.be.a(\"string\");",
+                  "  }",
+                  "});"
+                ],
+                "_lastExecutionId": "b3c68137-a023-484d-85fa-0660b22ae5f3"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "forgot-password"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127081"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "38a19fc4-2fcc-4817-bd4b-a576d2bf5628",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "27",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"email\":\"admin@eshop.com\"}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "bb8d06e7-e739-459c-9a35-63f12ef43708",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "83"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"53-us3QLRO8uIoU5itOZlfGHdWeI3s\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 29 Aug 2026 12:07:18 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              77,
+              195,
+              163,
+              32,
+              196,
+              145,
+              225,
+              186,
+              183,
+              116,
+              32,
+              108,
+              225,
+              186,
+              161,
+              105,
+              32,
+              109,
+              225,
+              186,
+              173,
+              116,
+              32,
+              107,
+              104,
+              225,
+              186,
+              169,
+              117,
+              32,
+              196,
+              145,
+              195,
+              163,
+              32,
+              196,
+              145,
+              198,
+              176,
+              225,
+              187,
+              163,
+              99,
+              32,
+              116,
+              225,
+              186,
+              161,
+              111,
+              34,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              84,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              56,
+              54,
+              48,
+              54,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 6,
+          "responseSize": 83
+        },
+        "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+        "assertions": [
+          {
+            "assertion": "DD-FR03-02 - status",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-02 - student header",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-02 - JSON content type",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-02 - exact response schema",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "821d374b-7546-4957-9aec-5e4c804e672d",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "879169e1-16d2-4c6f-864d-473fe869d06e"
+        },
+        "item": {
+          "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+          "name": "FR-03 forgot-password from CSV row",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "forgot-password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{email}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a7b2632a-5c00-4c3d-a2e5-7c9322b5987a",
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = pm.iterationData.get(\"case_id\");",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const schemaKind = pm.iterationData.get(\"schema_kind\");",
+                  "pm.test(caseId + \" - status\", () => pm.response.to.have.status(expectedStatus));",
+                  "pm.test(caseId + \" - student header\", () => pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127081\"));",
+                  "pm.test(caseId + \" - JSON content type\", () => pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"));",
+                  "pm.test(caseId + \" - exact response schema\", () => {",
+                  "  const body = pm.response.json();",
+                  "  const keys = Object.keys(body).sort();",
+                  "  if (schemaKind === \"success\") {",
+                  "    pm.expect(keys).to.eql([\"message\", \"resetToken\"]);",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.resetToken).to.be.a(\"string\");",
+                  "  } else {",
+                  "    pm.expect(keys).to.eql([\"error\"]);",
+                  "    pm.expect(body.error).to.be.a(\"string\");",
+                  "  }",
+                  "});"
+                ],
+                "_lastExecutionId": "b3c68137-a023-484d-85fa-0660b22ae5f3"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "forgot-password"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127081"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "bc757d09-9650-4656-b999-caca3363863c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "30",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"email\":\"nobody@example.com\"}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "53f7c9f8-780b-48ae-9bb2-4633700548f9",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "26"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1a-hq/hT0ORGTkTfyRpVCZ/JB/r8Eg\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 29 Aug 2026 12:07:18 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              110,
+              111,
+              116,
+              32,
+              102,
+              111,
+              117,
+              110,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 4,
+          "responseSize": 26
+        },
+        "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+        "assertions": [
+          {
+            "assertion": "DD-FR03-03 - status",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-03 - student header",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-03 - JSON content type",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-03 - exact response schema",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "2f0819ed-055a-48cf-b307-2977c6518a91",
+          "length": 1,
+          "cycles": 4,
+          "position": 0,
+          "iteration": 3,
+          "cr": true,
+          "httpRequestId": "f6c65e63-0dbc-4925-bf00-fe10be7c23cf"
+        },
+        "item": {
+          "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+          "name": "FR-03 forgot-password from CSV row",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "forgot-password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{email}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a7b2632a-5c00-4c3d-a2e5-7c9322b5987a",
+                "type": "text/javascript",
+                "exec": [
+                  "const caseId = pm.iterationData.get(\"case_id\");",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const schemaKind = pm.iterationData.get(\"schema_kind\");",
+                  "pm.test(caseId + \" - status\", () => pm.response.to.have.status(expectedStatus));",
+                  "pm.test(caseId + \" - student header\", () => pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127081\"));",
+                  "pm.test(caseId + \" - JSON content type\", () => pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"));",
+                  "pm.test(caseId + \" - exact response schema\", () => {",
+                  "  const body = pm.response.json();",
+                  "  const keys = Object.keys(body).sort();",
+                  "  if (schemaKind === \"success\") {",
+                  "    pm.expect(keys).to.eql([\"message\", \"resetToken\"]);",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.resetToken).to.be.a(\"string\");",
+                  "  } else {",
+                  "    pm.expect(keys).to.eql([\"error\"]);",
+                  "    pm.expect(body.error).to.be.a(\"string\");",
+                  "  }",
+                  "});"
+                ],
+                "_lastExecutionId": "b3c68137-a023-484d-85fa-0660b22ae5f3"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "forgot-password"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127081"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "c717e897-a7d0-4b82-b755-7ffa7435194d",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "23",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"email\":\"' OR 1=1 --\"}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "890a52d4-bf71-48ba-a0b6-1d04700af98c",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "26"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1a-hq/hT0ORGTkTfyRpVCZ/JB/r8Eg\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 29 Aug 2026 12:07:18 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              110,
+              111,
+              116,
+              32,
+              102,
+              111,
+              117,
+              110,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 24,
+          "responseSize": 26
+        },
+        "id": "4b76b957-cb79-47f7-a2e5-59088480ba9e",
+        "assertions": [
+          {
+            "assertion": "DD-FR03-04 - status",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-04 - student header",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-04 - JSON content type",
+            "skipped": false
+          },
+          {
+            "assertion": "DD-FR03-04 - exact response schema",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 218
+    },
+    "failures": [],
+    "error": null
+  }
+}

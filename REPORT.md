@@ -34,7 +34,7 @@ The human additions focus on cases that AI often misses: account enumeration, ra
 
 ## 3. Execution
 
-I converted the reviewed cases to one data-driven Postman collection and ran it with Newman 6.2.2. A collection pre-request script adds `X-Student-Id: 23127081` to every request.
+I converted the 120 reviewed cases to one strict Postman collection and ran it with Newman 6.2.2. I also created a separate FR-03 data-driven collection whose request values and expected results come from a CSV file. A collection pre-request script adds `X-Student-Id: 23127081` to every request.
 
 ### Commands and Postman steps used
 
@@ -50,7 +50,8 @@ Postman desktop did not use a shell command. I used these steps in the applicati
 1. Click **Import** and import `collections/EShop-HW06.postman_collection.json`.
 2. Import `collections/local.postman_environment.json` and select the local environment.
 3. Open the collection runner and run the FR-03, FR-09, and FR-12 folders against `http://127.0.0.1:3000`.
-4. Check the Postman Console to confirm `X-Student-Id: 23127081` on each request.
+4. For the data-driven demonstration, select `EShop-HW06-data-driven.postman_collection.json` and load `data/fr03-runner-data.csv` as the Runner data file.
+5. Check the Postman Console to confirm `X-Student-Id: 23127081` on each request.
 
 I ran the strict local suite and exported the JSON and HTML reports with:
 
@@ -61,6 +62,21 @@ newman run collections/EShop-HW06.postman_collection.json \
   --reporter-json-export newman/newman-results.json \
   --reporter-html-export newman/newman-report.html
 ```
+
+I ran the real CSV iteration-data demonstration with:
+
+```bash
+newman run collections/EShop-HW06-data-driven.postman_collection.json \
+  -e collections/local.postman_environment.json \
+  -d data/fr03-runner-data.csv \
+  -r cli,json,html \
+  --reporter-json-export newman/data-driven-results.json \
+  --reporter-html-export newman/data-driven-report.html
+```
+
+The data file supplied four iterations. Newman executed four requests and all 16 assertions passed. The collection reads `case_id`, `email`, `expected_status`, and `schema_kind` through `pm.iterationData`.
+
+![Data-driven Newman run with four CSV iterations](images/data-driven-newman.png)
 
 GitHub Actions ran the passing characterization baseline with:
 
@@ -91,7 +107,7 @@ There were 269 assertions: 195 passed and 74 failed. Failures were not hidden be
 - Collection variables and an environment file for the base URL, accounts, tokens, OTPs, IDs, and coupon data.
 - A collection-level pre-request script for the student header.
 - Request-level test scripts and dynamic state sharing.
-- Data-driven CSV files and one combined 120-case CSV.
+- A separate data-driven collection using `pm.iterationData`, the Collection Runner data-file input, and Newman's `-d data/fr03-runner-data.csv` option.
 - Positive, negative, boundary, state, security, and schema assertions.
 - Newman CLI execution with CLI, JSON, and HTML reporters.
 - GitHub Actions execution and uploaded JSON result artifact.

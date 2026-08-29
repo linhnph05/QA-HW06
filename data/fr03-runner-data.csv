@@ -1,0 +1,5 @@
+case_id,email,expected_status,schema_kind
+DD-FR03-01,test@eshop.com,200,success
+DD-FR03-02,admin@eshop.com,200,success
+DD-FR03-03,nobody@example.com,404,error
+DD-FR03-04,' OR 1=1 --,404,error
