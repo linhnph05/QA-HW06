@@ -154,6 +154,8 @@ I created the reusable `api-test-generator` Agent Skill. It reads Markdown endpo
 
 I drew the generator diagram by hand. The PNG and pseudocode are in `images/api-test-generator-diagram.png` and `reports/api-test-generator-design.md`.
 
+![Student-drawn API test generator diagram](images/api-test-generator-diagram.png)
+
 ## 8. AI Critique
 
 The full 200–300 word critique is in `reports/ai-critique.md`. My main lesson is that AI is useful for broad coverage, but a human must challenge its assumptions and connect separate security facts.
