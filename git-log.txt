@@ -1,3 +1,19 @@
+commit e934ee06673cf306b483a49fda0fed0a4eec765c
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-30 00:35:44 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-30 00:35:44 +0700
+
+    docs: embed GitHub Issues page in bug report
+
+commit c38bc228e97204b9cdeb78c555d74a07fe680279
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 22:43:02 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 22:43:02 +0700
+
+    submission: package student-drawn diagram
+
 commit 396c6b745349496d483c48fb1537bb39adc03463
 Author:     linhnph05 <linhnph05@gmail.com>
 AuthorDate: 2026-08-29 22:42:49 +0700
