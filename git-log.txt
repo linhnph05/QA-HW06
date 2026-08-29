@@ -1,3 +1,15 @@
+commit 1e3b9b13fd037c9a07c0ff5418c54e0852a1ab57
+Author: linhnph05 <linhnph05@gmail.com>
+Date:   2026-08-29 16:27:12 +0700
+
+    docs: embed full AI logs in audit report
+
+commit 482b0e390d46f2c3ce770651d9c15cb6e711012a
+Author: linhnph05 <linhnph05@gmail.com>
+Date:   2026-08-29 16:08:42 +0700
+
+    submission: refresh report with endpoint list
+
 commit adb6b785134accb178f2e58263f033a50c33b088
 Author: linhnph05 <linhnph05@gmail.com>
 Date:   2026-08-29 16:07:50 +0700
