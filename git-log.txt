@@ -1,3 +1,19 @@
+commit ef826ee54f1751e27470f4e04401a9ed5dc3b07f
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-30 00:56:43 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-30 00:56:43 +0700
+
+    submission: refresh PDFs after guide update
+
+commit b73b73336a86dc23564a2a5d4617581f6a9d7423
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-30 00:50:27 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-30 00:50:27 +0700
+
+    submission: refresh final exclusions
+
 commit 0d55401c69013e8e9d84213b14762720972483e4
 Author:     linhnph05 <linhnph05@gmail.com>
 AuthorDate: 2026-08-30 00:50:24 +0700
