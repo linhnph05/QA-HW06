@@ -1,3 +1,19 @@
+commit 13d13d132830688ffca1c0101fba8a1451c5bf49
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-30 00:49:20 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-30 00:49:20 +0700
+
+    docs: sync revised AI audit PDF
+
+commit 6842528d769afa63714f37ff5bffe76f903144d0
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-30 00:47:51 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-30 00:47:51 +0700
+
+    submission: exclude homework and note files
+
 commit 6e47bcac49f90dc0cb1662ea5120c3f79de93160
 Author:     linhnph05 <linhnph05@gmail.com>
 AuthorDate: 2026-08-30 00:44:08 +0700
