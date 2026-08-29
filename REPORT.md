@@ -9,13 +9,39 @@ Self-assessed score: **100/100**
 
 I tested three EShop features:
 
-| Pool | Feature | Main endpoints |
+| Pool | Feature | Selected endpoints |
 |---|---|---|
 | A | FR-03 Forgot and reset password | `POST /api/forgot-password`, `POST /api/reset-password` |
-| B | FR-09 Discount coupons | `POST /api/apply-coupon` and related usage flow |
-| C | FR-12 Access control | Admin read and mutation endpoints |
+| B | FR-09 Discount coupons | `POST /api/apply-coupon`, `POST /api/coupon-usage` |
+| C | FR-12 Access control | `GET /api/admin/users` plus related protected admin endpoints listed below |
 
 I used the API specification, security rules SEC-01 to SEC-07, and the running backend at `http://127.0.0.1:3000`.
+
+### Exact endpoints used
+
+For FR-03, I sent requests to:
+
+- `POST /api/forgot-password` to request an OTP.
+- `POST /api/reset-password` to validate the OTP and change the password.
+
+For FR-09, I sent requests to:
+
+- `POST /api/apply-coupon` to validate a coupon and calculate the discount.
+- `POST /api/coupon-usage` to test coupon usage records and usage-limit state.
+
+For FR-12, `GET /api/admin/users` was the representative access-control API. I also tested these protected endpoints to check whether role enforcement was consistent:
+
+- `GET /api/admin/users`
+- `DELETE /api/admin/users/:id`
+- `GET /api/admin/orders`
+- `PUT /api/admin/orders/:id/status`
+- `GET /api/coupons`
+- `POST /api/admin/coupons`
+- `DELETE /api/admin/coupons/:id`
+- `POST /api/admin/import-products`
+- `POST /api/products`
+
+The collection also used `POST /api/register` and `POST /api/login` during setup. These requests created test users and obtained normal-user and admin tokens. I did not count the setup requests as selected APIs.
 
 ## 2. AI-First Test Design and Human Audit
 
