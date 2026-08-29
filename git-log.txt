@@ -1,209 +1,319 @@
+commit 6612a83ca2e135033f05644c0c913d02f3bd767d
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 21:32:19 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 21:32:19 +0700
+
+    tests: add exact response schema validation
+
+commit b5b8e7d27bc0c9b04e2e4b25be34438c0bcb9d14
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 19:29:43 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 19:29:43 +0700
+
+    tests: add verified data-driven Newman run
+
+commit 0f3faccf75875f7882788fea365826a84e15dbcb
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 18:54:39 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 18:54:39 +0700
+
+    submission: add AI critique PDF
+
+commit 1bd8140066b7499087bffb87f199d66d904b600c
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 18:34:02 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 18:34:02 +0700
+
+    submission: add Excel test cases and summary
+
+commit 533417634442d082594a122862445509b37f1076
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 17:00:29 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 17:00:29 +0700
+
+    submission: package commands and embedded images
+
 commit bb28c2a960f220ba9b594972563f6b88e373030a
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-29 16:59:04 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 16:59:04 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 16:59:04 +0700
 
     docs: add execution commands and embed evidence images
 
 commit 01dd917a68769712000a14892110c332871076f6
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-29 16:48:57 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 16:48:57 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 16:48:57 +0700
 
     submission: package synchronized AI logs
 
 commit 874847142215337edd6e0bcaff6c231dcf9e21c2
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-29 16:47:37 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 16:47:37 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 16:47:37 +0700
 
     docs: sync AI log details across test cases
 
 commit 48de4bf5fb291f71508f76f10b8ed706b7c67622
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-29 16:28:21 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 16:28:21 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 16:28:21 +0700
 
     submission: include embedded AI audit logs
 
 commit 1e3b9b13fd037c9a07c0ff5418c54e0852a1ab57
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-29 16:27:12 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 16:27:12 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 16:27:12 +0700
 
     docs: embed full AI logs in audit report
 
 commit 482b0e390d46f2c3ce770651d9c15cb6e711012a
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-29 16:08:42 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 16:08:42 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 16:08:42 +0700
 
     submission: refresh report with endpoint list
 
 commit adb6b785134accb178f2e58263f033a50c33b088
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-29 16:07:50 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-29 16:07:50 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-29 16:07:50 +0700
 
     docs: list exact tested endpoints
 
 commit 761b63117743f3ce39a5eb5f605f5961b065c368
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 16:35:57 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 16:35:57 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 16:35:57 +0700
 
     submission: include student header screenshot
 
 commit 2ca9ba6f37546236a62c9020e7e8113a1250e3df
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 16:35:05 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 16:35:05 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 16:35:05 +0700
 
     docs: add student header console evidence
 
 commit deee733792872070bdf39ca65138aba6f738a836
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 14:19:17 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 14:19:17 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 14:19:17 +0700
 
     submission: refresh final git log
 
 commit b620798a0549d8b6823b5e3e72ffaba8907f18da
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 14:18:24 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 14:18:24 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 14:18:24 +0700
 
     submission: package HW06 artifacts
 
 commit c84b55dee2caa0324b2e52beec567b1d6f50599a
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 14:17:24 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 14:17:24 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 14:17:24 +0700
 
     docs: add command-generated git log
 
 commit 929781b237a0ae3ba1874c13f62d2d09177371ac
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 14:15:42 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 14:15:42 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 14:15:42 +0700
 
     docs: add verified PDF reports
 
 commit 1f6c3e7d7b2eda920e5a7e18a3a2e9dace7c4813
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 14:10:28 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 14:10:28 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 14:10:28 +0700
 
     docs: add final reports and self-assessment
 
 commit 6b2bb80785d651286f2d8df65fcbd7c4ddec09cb
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 14:07:00 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 14:07:00 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 14:07:00 +0700
 
     feat: add reusable API test generator skill
 
 commit 68a2c34c5b37b59dc15d7fad2495c9d78e83eba6
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 14:03:03 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 14:03:03 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 14:03:03 +0700
 
     ci: restore passing characterization baseline
 
 commit 19bfee56797d57fad87e4c084ad44ef36753c05a
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 14:02:48 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 14:02:48 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 14:02:48 +0700
 
     docs: capture failing CI evidence
 
 commit b6e490c6de73f3ae811cb0a0f6e0bab75b7d93ef
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 13:58:01 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 13:58:01 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 13:58:01 +0700
 
     CI: demonstrate exactly one failing API test
 
 commit 98f77c3aa64d70662ba6aa3b4d4cfad9fed421e8
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 13:55:55 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 13:55:55 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 13:55:55 +0700
 
     CI: configure EShop submodule checkout
 
 commit 94eeae11426937fdcaa78ee82da0b23ee02d2be9
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 13:51:22 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 13:51:22 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 13:51:22 +0700
 
     CI: add passing 120-case Newman pipeline
 
 commit 231df8a1f14f45dd157ee387481f0470c3da1237
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 13:48:07 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 13:48:07 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 13:48:07 +0700
 
     Link GitHub issues and bug evidence
 
 commit 613a4182cbd68c0db75c3b518524c69c168914e6
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 13:45:22 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 13:45:22 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 13:45:22 +0700
 
     Report nine API security and logic bugs
 
 commit a621c748ea74b597c4b755ce5261bfa3ef08d4bb
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 13:12:03 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 13:12:03 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 13:12:03 +0700
 
     FR12: execute Postman and Newman tests
 
 commit a4c8a7f4d3a415e4d9c3cbd9684fae21939efe1e
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 13:11:37 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 13:11:37 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 13:11:37 +0700
 
     FR09: execute Postman and Newman tests
 
 commit 3f3349cdd7df522d9850f293f5e93e735763778c
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 13:11:07 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 13:11:07 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 13:11:07 +0700
 
     FR03: execute Postman and Newman tests
 
 commit b0ca44c78186f7e67b8ad50a6890b1d2ac12cd73
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:35:05 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:35:05 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:35:05 +0700
 
     FR12: extend with human security cases
 
 commit 05ae235d3d3472e83c4a7f27e128aada8bbfe532
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:34:18 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:34:18 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:34:18 +0700
 
     FR12: audit AI test cases
 
 commit b3e3b4d3e577f6718bcb5a5c8b6936f69c00552f
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:33:19 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:33:19 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:33:19 +0700
 
     FR12: generate AI test cases
 
 commit 6fa242fe3a5aee3f68d89e7bcf349bebc674c864
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:32:52 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:32:52 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:32:52 +0700
 
     FR09: extend with human security cases
 
 commit edd6249fb264d780b675a139fd70bb4df697b8df
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:32:02 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:32:02 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:32:02 +0700
 
     FR09: audit AI test cases
 
 commit 9c9bf178a7529e19c479cfd71bd6f428b485a692
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:30:14 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:30:14 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:30:14 +0700
 
     FR09: generate AI test cases
 
 commit 2c71d8977de259686ee7b2d0008a7f94843ef18e
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:29:48 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:29:48 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:29:48 +0700
 
     FR03: extend with human security cases
 
 commit bb46c89e01f5780029757f7c4d6e21f60443110c
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:28:49 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:28:49 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:28:49 +0700
 
     FR03: audit AI test cases
 
 commit 74bc169e9830873b95e6e80eaea60a126d7aca0d
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 12:27:46 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 12:27:46 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 12:27:46 +0700
 
     FR03: generate AI test cases
 
 commit fe0954340849286b6196bd3a8320a8a1a9f9aa77
-Author: linhnph05 <linhnph05@gmail.com>
-Date:   2026-08-18 10:17:46 +0700
+Author:     linhnph05 <linhnph05@gmail.com>
+AuthorDate: 2026-08-18 10:17:46 +0700
+Commit:     linhnph05 <linhnph05@gmail.com>
+CommitDate: 2026-08-18 10:17:46 +0700
 
     first commit
