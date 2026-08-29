@@ -1,6 +1,6 @@
 # AI Log — FR-12
 
-- Tool: Codex helper AI (Raman)
+- Tool: Codex
 - Date/time (Asia/Ho_Chi_Minh): 2026-08-18 12:26:09 +07
 
 ## Original prompt from the primary agent
