@@ -95,7 +95,7 @@ newman run collections/EShop-HW06-ci-baseline.postman_collection.json \
 | FR-12 | 40 | 17 | 23 | 23 |
 | **Total** | **120** | **54** | **66** | **74** |
 
-There were 269 assertions: 195 passed and 74 failed. Failures were not hidden because many show real security or business-logic bugs. Evidence is in `newman/newman-report.html`, `newman/newman-results.json`, `results/*.csv`, `images/newman-summary.png`, and `images/student-id-console.png`. The console screenshot proves that the pre-request script added `X-Student-Id: 23127081` to the executed requests.
+There were 389 assertions: 315 passed and 74 failed. The collection-level test script uses `pm.response.to.have.jsonSchema` for every selected test request. Each mapped schema checks the exact allowed keys, required keys, field types, array item types, and `additionalProperties: false`. Error responses must contain only a string `error` field. All schema assertions passed; the remaining failures show security, validation, or business-logic mismatches. Evidence is in `newman/newman-report.html`, `newman/newman-results.json`, `results/*.csv`, `images/newman-summary.png`, and `images/student-id-console.png`. The console screenshot proves that the pre-request script added `X-Student-Id: 23127081` to the executed requests.
 
 ![Newman execution summary](images/newman-summary.png)
 
@@ -108,7 +108,7 @@ There were 269 assertions: 195 passed and 74 failed. Failures were not hidden be
 - A collection-level pre-request script for the student header.
 - Request-level test scripts and dynamic state sharing.
 - A separate data-driven collection using `pm.iterationData`, the Collection Runner data-file input, and Newman's `-d data/fr03-runner-data.csv` option.
-- Positive, negative, boundary, state, security, and schema assertions.
+- Positive, negative, boundary, state, and security assertions, plus endpoint-specific exact JSON Schema checks using `pm.response.to.have.jsonSchema`.
 - Newman CLI execution with CLI, JSON, and HTML reporters.
 - GitHub Actions execution and uploaded JSON result artifact.
 

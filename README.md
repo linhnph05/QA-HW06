@@ -16,7 +16,7 @@ This repository contains my API testing homework for the EShop SUT. I selected F
 | Total executed cases | 120 |
 | Passed cases | 54 |
 | Failed cases | 66 |
-| Passed assertions | 195 |
+| Passed assertions | 315 |
 | Failed assertions | 74 |
 | Bugs reported | 9 |
 
