@@ -2,6 +2,10 @@
 
 Environment: EShop backend on `http://127.0.0.1:3000`, tested on 18 August 2026 with Newman 6.2.2. Every automated request used `X-Student-Id: 23127081`.
 
+All nine bugs were also submitted on the public GitHub Issues page.
+
+![GitHub Issues page showing the nine submitted bugs](../images/github-issues.png)
+
 ## BUG-01 - Reset OTP has only four digits and no expiry state
 
 - GitHub Issue: https://github.com/linhnph05/QA-HW06/issues/1
