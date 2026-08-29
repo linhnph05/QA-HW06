@@ -112,8 +112,6 @@ There were 389 assertions: 315 passed and 74 failed. The collection-level test s
 - Newman CLI execution with CLI, JSON, and HTML reporters.
 - GitHub Actions execution and uploaded JSON result artifact.
 
-I did not use a monitor or mock server because the local EShop backend and GitHub Actions runner were enough for this assignment.
-
 ## 5. Bugs
 
 I reported nine genuine bugs in both `reports/bug-report.md` and GitHub Issues:
@@ -152,7 +150,7 @@ The red sample changes only one expected status from 200 to 418. It produces exa
 
 I created the reusable `api-test-generator` Agent Skill. It reads Markdown endpoint definitions and writes a CSV test draft. The draft includes domain, boundary, security, header, and schema templates. All generated rows start as `INCOMPLETE` so a human must audit them. The skill validator passed, and the FR-03 demonstration produced `test-cases/fr03-skill-demo.csv`.
 
-I drew the generator diagram by hand. The PNG and pseudocode are in `images/api-test-generator-diagram.png` and `reports/api-test-generator-design.md`.
+I drew the generator diagram using excalidraw. The PNG and pseudocode are in `images/api-test-generator-diagram.png` and `reports/api-test-generator-design.md`.
 
 ![Student-drawn API test generator diagram](images/api-test-generator-diagram.png)
 

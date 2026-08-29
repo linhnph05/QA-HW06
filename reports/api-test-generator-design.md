@@ -4,7 +4,7 @@ I designed this generator as a small review pipeline. The program finds endpoint
 
 ## Self-Drawn Diagram
 
-I drew this diagram by hand to show the generator flow and the human decision at the end.
+I drew this diagram using excalidraw to show the generator flow and the human decision at the end.
 
 ![Self-drawn API test generator diagram](../images/api-test-generator-diagram.png)
 
